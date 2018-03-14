@@ -3,7 +3,6 @@ Script Documentation
 David Holcomb
 March 2018
 
-<<<<<<< HEAD
 ## DNA_editor_EColi.py
 Produces the amino acid sequence and DNA resulting from a series of edit mutations, as expressed in E. Coli.  
 It takes in a file formatted as one line of the original amino acid sequence, one line of the original DNA sequence, and a series of lines of edit mutations formatted as: the location of the amino acid to change, the original amino acid, and the amino acid to change to (for example, "25 A->G"). Note that the edit locations are 0-indexed.  
