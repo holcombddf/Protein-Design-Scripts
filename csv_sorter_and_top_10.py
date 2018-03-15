@@ -13,14 +13,16 @@ def main(sysargv=[]):
   #the number of rows in the output
   NUM = 10
 
-  path = ""
-  directory = ""
-  if len(sysargv) >= 1:
-    path = sysargv[0]
-    directory = os.path.basename(os.path.dirname(sysargv[0]))
-
-  infile = open(path + directory + "_collected_scores.csv", "r")
-  outfile = open(path + "sorted_" + directory + "_collected_scores.csv", "w")
+  if os.path.isdir(sysargv[0]): #for use after process_score_data.py, which produces [directory]_collected_scores.csv
+    path = os.path.join(sysargv[0], "")
+    directory = os.path.basename(os.path.dirname(path))
+    infile = open(path + directory + "_collected_scores.csv", "r")
+    outfile = open(path + "sorted_" + directory + "_collected_scores.csv", "w")
+  elif os.path.isfile(sysargv[0]): #for general purpose use, can be used on any CSV-formatted file
+    path = os.path.join((os.path.dirname(sysargv[0])), "")
+    filename = os.path.basename(sysargv[0])
+    infile = open(sysargv[0], "r")
+    outfile = open(path + "sorted_" + filename, "w")
 
   file_lines = infile.readlines()
 

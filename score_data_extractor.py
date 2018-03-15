@@ -13,11 +13,11 @@ def main(sysargv=[]):
   labels = "name, "
 
   #get the path and directory to work in
-  path = ""
-  directory = ""
-  if len(sysargv) >= 1:
-    path = sysargv[0]
-    directory = os.path.basename(os.path.dirname(sysargv[0]))
+  if os.path.isdir(sysargv[0]):
+    path = os.path.join(sysargv[0], "")
+    directory = os.path.basename(os.path.dirname(path))
+  else: 
+    raise Exception("Directory containing score files not given.")
 
   #create array of files
   filelist = []	

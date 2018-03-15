@@ -27,7 +27,7 @@ def main(sysargv=[]):
   while (line):
     lineparts = re.findall("\S+", line)
     if len(lineparts) > 5 and lineparts[0] == "ATOM":
-      key = str(lineparts[4]) + str(lineparts[5])
+      key = (lineparts[4], int(lineparts[5]))
       if key not in ref_vals: #line data is not already in the dictionary
 	ref_vals[key] = lineparts[3]
     line = ref_pdb.readline()
@@ -39,7 +39,7 @@ def main(sysargv=[]):
     while (line):
       lineparts = re.findall("\S+", line)
       if len(lineparts) > 5 and lineparts[0] == "ATOM":
-	key = str(lineparts[4]) + str(lineparts[5])
+	key = (lineparts[4], int(lineparts[5]))
 	if lineparts[3] != ref_vals[key]: #there's a difference to add
 	  difference = str(lineparts[5])+"\t"+str(ref_vals[key])+ "->" + str(lineparts[3])
 	  if (difference not in dif): #the difference is not in the array for this PDB
