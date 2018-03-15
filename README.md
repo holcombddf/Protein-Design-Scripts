@@ -1,7 +1,7 @@
 # Protein-Design-Scripts
-Script Documentation
-David Holcomb
-March 2018
+Script Documentation  
+David Holcomb  
+March 2018  
 
 ## dna_editor_ecoli.py
 Produces the amino acid sequence and DNA resulting from a series of edit mutations, as expressed in E. Coli.  
