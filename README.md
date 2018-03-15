@@ -1,13 +1,14 @@
 # Protein-Design-Scripts
-David Holcomb  
-March 2018  
+Script Documentation
+David Holcomb
+March 2018
 
-## DNA_editor_EColi.py
+## dna_editor_ecoli.py
 Produces the amino acid sequence and DNA resulting from a series of edit mutations, as expressed in E. Coli.  
 It takes in a file formatted as one line of the original amino acid sequence, one line of the original DNA sequence, and a series of lines of edit mutations formatted as: the location of the amino acid to change, the original amino acid, and the amino acid to change to (for example, "25 A->G"). Note that the edit locations are 0-indexed.  
 Takes as arguments the path to the input file and the path to the output file, but also accepts the path from the command line if no arguments are given.  
 
-## PDB_change_parser.py
+## pdb_change_parser.py
 Produces a list of amino acid changes for multiple PDB files, relative to a reference PDB.  
 It takes in a file consisting of a list of PDB files.  
 Takes two arguments: a reference PDB file to compare to, and a list of PDB files to compare.  
