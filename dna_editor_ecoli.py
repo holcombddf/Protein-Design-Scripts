@@ -56,8 +56,8 @@ def main(sysargv=[]):
   dataFile = util.get_file(sysargv, 0, "r", "input")
   outFile = util.get_file(sysargv, 1, "w", "output")
 
-  amino_seq = dataFile.readline()
-  dna_seq = dataFile.readline()
+  amino_seq = (dataFile.readline()).rstrip()
+  dna_seq = (dataFile.readline()).rstrip()
 
   line = dataFile.readline()
   while (line):
@@ -74,11 +74,8 @@ def main(sysargv=[]):
     dna_seq=aa_to_dna(dna_seq, location, lineparts[2])
     line = dataFile.readline()
     
-  outFile.write(amino_seq)
-  outFile.write(dna_seq)
-
-  print amino_seq
-  print dna_seq
+  util.double_print(amino_seq, outFile)
+  util.double_print(dna_seq, outFile)
 
   dataFile.close()
   outFile.close()
