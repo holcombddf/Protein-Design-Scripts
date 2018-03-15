@@ -18,8 +18,7 @@ else:
 #run scripts in each subdirectory
 for subdir in [x[0] for x in os.walk(directory)]:
     subdir.strip()
-    if subdir[-1] != os.path.sep:
-      subdir = subdir + os.path.sep
+    os.path.join(subdir, "")
     if os.path.isdir(subdir) and os.path.normpath(subdir) != os.path.normpath(directory):
       t = threading.Thread(target=run_scripts, args=(subdir,))
       t.start()

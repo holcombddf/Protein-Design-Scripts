@@ -5,6 +5,22 @@ import sys
 import re
 import os
 import util
+import threading
+
+def find_dif(ref_vals, dif_dict, pdb):
+  #read and compare the data for the other PDBs
+  dif = []
+  line = pdb.readline()
+  while (line):
+    lineparts = re.findall("\S+", line)
+    if len(lineparts) > 5 and lineparts[0] == "ATOM":
+      key = (lineparts[4], int(lineparts[5]))
+      if lineparts[3] != ref_vals[key]: #there's a difference to add
+	difference = str(lineparts[5])+"\t"+str(ref_vals[key])+ "->" + str(lineparts[3])
+	if (difference not in dif): #the difference is not in the array for this PDB
+	  dif.append(difference)
+    line = pdb.readline()
+  dif_dict[pdb.name]=dif
 
 def main(sysargv=[]):
   ref_pdb = None
@@ -32,21 +48,15 @@ def main(sysargv=[]):
 	ref_vals[key] = lineparts[3]
     line = ref_pdb.readline()
 
+  t_arr = []
   #read and compare the data for the other PDBs
-  for pdb in pdb_files:
-    dif = []
-    line = pdb.readline()
-    while (line):
-      lineparts = re.findall("\S+", line)
-      if len(lineparts) > 5 and lineparts[0] == "ATOM":
-	key = (lineparts[4], int(lineparts[5]))
-	if lineparts[3] != ref_vals[key]: #there's a difference to add
-	  difference = str(lineparts[5])+"\t"+str(ref_vals[key])+ "->" + str(lineparts[3])
-	  if (difference not in dif): #the difference is not in the array for this PDB
-	    dif.append(difference)
-      line = pdb.readline()
-    dif_dict[pdb.name]=dif
+  for i,pdb in enumerate(pdb_files):
+    t_arr.append(threading.Thread(target=find_dif, args=(ref_vals, dif_dict, pdb,)))
+    t_arr[i].start()
     
+  for i,pdb in enumerate(pdb_files):
+    t_arr[i].join()
+  
   util.double_print("Changes to " + os.path.basename(ref_pdb.name), outfile)
   util.double_print("-------------------------------------------------", outfile)
   ref_pdb.close()
