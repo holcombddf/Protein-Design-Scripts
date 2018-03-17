@@ -22,18 +22,20 @@ Takes as an argument a path to the PDB file to convert.
 Produces a spreadsheet of the desired columns from all the score files in a desired directory.  
 To change the columns, edit the INDICES variable.  
 Takes as an argument a path to the directory containing the score files.  
-Can be given a second argument, which is a list of column labels.
+Can be given a second argument, which is a path to a list of column labels.
 
 ## csv_sorter_and_top_10.py
 Produces a spreadsheet containing the top NUM lines of an input spreadsheet, sorted on column COL. Designed to be used after score_data_extractor.py.  
 The spreadsheet to be sorted should be named "[folder name]_collected_scores.csv", where [folder name] gives the name of the folder containing the spreadsheet.  
 To change the number of lines to be output or the column to sort on, change variables NUM or COL, respectively.  
-Takes as an argument a path to the directory containing the spreadsheet to be sorted.
+Takes as an argument a path to the directory containing the spreadsheet to be sorted, or a path to the spreadsheet to be sorted.  
+Can be given a second argument, which is the column label to sort on.
 
 ## process_score_files.sh
 Runs score_data_extractor.py and csv_sorter_and_top_10.py in each subdirectory of a given directory.  
 Takes as an argument the path to the directory containing all subdirectories.  
-Can be given a second argument, which is a list of column labels.
+Can be given a second argument, which is a list of column labels.  
+Can be given a third argument, which is the column label to sort on.
 
 ## process_score_files.py
 Same as process_score_files.sh, but written in python.

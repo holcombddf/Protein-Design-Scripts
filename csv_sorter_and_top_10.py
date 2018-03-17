@@ -1,10 +1,12 @@
 #!/usr/bin/python
 #Script should have an argument containing the path to a directory containing a CSV (.csv) of all collected score data
 #Otherwise, it uses the current directory
+#Can be given a second argument, which is the label of the column to sort on
 #Script is designed to be used after score_data_extrator.py
 
 import sys
 import os
+import re
 import util
 
 def main(sysargv=[]):
@@ -12,6 +14,8 @@ def main(sysargv=[]):
   COL = 1
   #the number of rows in the output
   NUM = 10
+  #indicator variable which determines whether or not to try to get the index of the column to sort on
+  ind_flag = False
 
   if os.path.isdir(sysargv[0]): #for use after process_score_data.py, which produces [directory]_collected_scores.csv
     path = os.path.join(sysargv[0], "")
@@ -24,10 +28,21 @@ def main(sysargv=[]):
     infile = open(sysargv[0], "r")
     outfile = open(path + "sorted_" + filename, "w")
 
+  #read the file_lines
   file_lines = infile.readlines()
-
   #write the first row, the labels
   util.double_print((file_lines[0]).rstrip(), outfile)
+  
+  #search the labels for the index of the given label
+  if len(sysargv) > 1:
+    values = re.findall ("\S+", file_lines[0])
+    for i, value in enumerate(values):
+      value = value.rstrip()
+      value = value.rstrip(',')
+      if (sysargv[1].rstrip()).lower() == value.lower():
+	COL = i
+    
+  #delete the labels, so we can sort on values
   del file_lines[0]
 
   max_lines = [];

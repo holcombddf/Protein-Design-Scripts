@@ -11,7 +11,7 @@ def main(sysargv=[]):
   INDICES = [0,1,4,5,36]
 
   ind_flag = False #indicator variable which determines whether or not to try to get the indices of the column labels
-  labels = "name, "
+  labels = "name, " #first line to be constructed later, contains the labels
 
   #get the path and directory to work in
   if os.path.isdir(sysargv[0]):
@@ -28,6 +28,7 @@ def main(sysargv=[]):
       ind_flag = True
     except Exception as e:
       print str(e)
+      print "Error opening column index list. Reverting to default column indices."
       ind_flag = False
 
   #create array of files

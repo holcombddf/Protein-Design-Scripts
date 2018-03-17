@@ -2,14 +2,18 @@
 #Script should have an argument that is a path to the directory containing all the subdirectories
 #Otherwise, it uses the current directory
 #Script can be given a second argument, which is a file containing a list of column labels
+#Script can be given a third argument which is a column label to sort the values on
 
 run_scripts(){
   if [[ $# -eq 1 ]]; then #indices are given
     python score_data_extractor.py $1
     python csv_sorter_and_top_10.py $1
-  elif [[ $# -gt 1 ]]; then #labels are given in #2, need to find indices
+  elif [[ $# -eq 2 ]]; then #labels are given in #2, need to find indices
     python score_data_extractor.py $1 $2
     python csv_sorter_and_top_10.py $1
+  elif [[ $# -gt 2 ]]; then
+    python score_data_extractor.py $1 $2
+    python csv_sorter_and_top_10.py $1 $3
   fi
 }
 
@@ -25,8 +29,10 @@ for subdir in $dir/*/
 do
   if [[ $# -le 1 ]]; then 
     run_scripts $subdir & 
-  elif [[ $# -gt 1 ]]; then
+  elif [[ $# -eq 2 ]]; then
     run_scripts $subdir $2 &
+  elif [[ $# -gt 2 ]]; then
+    run_scripts $subdir $2 $3 &
   fi
 done
 wait
