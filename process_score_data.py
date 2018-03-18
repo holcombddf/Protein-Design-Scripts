@@ -11,11 +11,11 @@ import score_data_extractor
 import csv_sorter_and_top_10
 
 def run_scripts(subdir, labels=None, sort_label=None):
-  if labels is not None:
+  if labels is not None: #path to a list of labels is given by user
     score_data_extractor.main([subdir, labels])
   else:
     score_data_extractor.main([subdir])
-  if sort_label is not None:
+  if sort_label is not None: #the column label to sort on is given by user
     csv_sorter_and_top_10.main([subdir, sort_label])
   else:
     csv_sorter_and_top_10.main([subdir])
