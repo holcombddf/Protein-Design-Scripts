@@ -27,6 +27,8 @@ def main(sysargv=[]):
     filename = os.path.basename(sysargv[0])
     infile = open(sysargv[0], "r")
     outfile = open(path + "sorted_" + filename, "w")
+  else:
+    print "Fart"
 
   #read the file_lines
   file_lines = infile.readlines()

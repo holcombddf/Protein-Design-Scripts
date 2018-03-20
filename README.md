@@ -39,3 +39,6 @@ Can be given a third argument, which is the column label to sort on.
 
 ## process_score_files.py
 Same as process_score_files.sh, but written in python.
+
+## util.py
+Contains frequently used utility functions for running the other scripts.

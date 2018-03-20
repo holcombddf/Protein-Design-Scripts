@@ -6,6 +6,7 @@
 
 import sys
 import os
+import util
 import threading
 import score_data_extractor
 import csv_sorter_and_top_10

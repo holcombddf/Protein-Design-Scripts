@@ -5,6 +5,7 @@
 import sys
 import re
 import os
+import util
 
 def main(sysargv=[]):
   #list of indices of the columns we want to store
@@ -19,17 +20,21 @@ def main(sysargv=[]):
     directory = os.path.basename(os.path.dirname(path))
   else: 
     raise Exception("Directory containing score files not given.")
+  
   #if user gives a list of column labels, read them
-  if len(sysargv) > 1:
-    try:
-      indices_file = open(sysargv[1], "r")
+  try:
+    if len(sysargv) == 2:
+      indices_file = util.openfile(sysargv[1], "r")
       col_labels = indices_file.readlines()
       indices_file.close()
       ind_flag = True
-    except Exception as e:
-      print str(e)
-      print "Error opening column index list. Reverting to default column indices."
-      ind_flag = False
+    if len(sysargv) > 2:
+      col_labels = sysargv[2:]
+      ind_flag = True
+  except Exception as e:
+    print str(e)
+    print "Error opening column index list. Reverting to default column indices."
+    ind_flag = False
 
   #create array of files
   filelist = []	

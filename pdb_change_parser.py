@@ -6,6 +6,7 @@ import re
 import os
 import util
 import threading
+import argparse
 
 def find_dif(ref_vals, dif_dict, pdb):
   #read and compare the data for the other PDBs
