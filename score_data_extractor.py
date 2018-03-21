@@ -29,7 +29,7 @@ def main(sysargv=[]):
       indices_file.close()
       ind_flag = True
     if len(sysargv) > 2:
-      col_labels = sysargv[2:]
+      col_labels = sysargv[1:]
       ind_flag = True
   except Exception as e:
     print str(e)
