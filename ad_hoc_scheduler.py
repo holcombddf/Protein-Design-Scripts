@@ -22,15 +22,15 @@ def run_job(cmd, sem, lock):
 
 def main(sysargv=[]):
   TLIM = 50 #the maximum number of concurrent threads
-  MLIM = 20000 #the memory limit
+  MLIM = 20.0 #the memory limit (in GB)
   if len(sysargv) > 0:
     TLIM = int(sysargv[0])
   if len(sysargv) > 1:
-    MLIM = int(sysargv[1])
+    MLIM = float(sysargv[1])
   
   #imprecise safety precautions
   TLIM = TLIM - 1
-  MLIM = MLIM * TLIM/(TLIM+1)
+  MLIM = int(MLIM * (2**20) * float(TLIM)/(TLIM+1)) #in kB
   
   t_arr = [] #array of threads
   sem = BoundedSemaphore(value=TLIM) #semaphore to control the number of threads

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #This script contains utility functions used by other scripts
 import os
+import re
 import gzip
 
 #for opening and reading GZ files
@@ -44,3 +45,55 @@ def get_file_list(sysargv, index=2, mode="r", filetype=""):
 def double_print(string, handle):
   print string
   handle.write(string + "\n")
+  
+def extract_score_data(filelist, outfile, INDICES, col_labels, labels):
+  #read each file
+  for file_name in filelist:
+      file_name = file_name.rstrip()
+      infile = open(file_name, 'r')
+      
+      #read through file
+      read_score = 0;
+      line = infile.readline()
+      while line:
+	  line.rstrip()
+	  if re.match("SCORE:",line):
+	    read_score = read_score + 1
+	    
+	  #compare the desired labels to the actual labels to get the indices
+	  if read_score == 1 and (len(col_labels) > 0):
+	    INDICES = []
+	    values = re.findall ("\S+", line)
+	    for label in col_labels:
+	      for i, value in enumerate(values):
+		if (label.rstrip()).lower() == (value.rstrip()).lower():
+		  INDICES.append(i-1)
+	    
+	  #read the labels
+	  if read_score == 1 and labels == "name, ": #first time reading SCORE and labels
+	      values = re.findall ("\S+", line)
+	      for index in INDICES:
+		labels = labels + values[index+1] + ", "
+	      outfile.write(labels + "\n")
+	      
+	  #read the values
+	  elif read_score >= 2: #second time reading SCORE means we can read the numbers
+	      #find all floating point numbers in the line
+	      values = re.findall("\-?\d+\.\d+", line)
+	      if len(values) > max(INDICES):#check that we have enough numbers in the line to match the indicies
+		#write name of file (after removing path)
+		outfile.write(os.path.basename(file_name) + ", ")
+		#write the desired data to the output file
+		for i in INDICES:
+		  outfile.write(values[i] + ", ")
+		  
+		#sum_val = float(values[4]) + float(values[5]) + float(values[36])
+		#outfile.write(str(sum_val))
+		
+		#write newline to end row
+		outfile.write("\n")
+			
+	      else:
+		raise Exception("There aren't enough numerical columns in " + line + "\nfrom file " + file_name)
+	  line = infile.readline()
+      infile.close()
