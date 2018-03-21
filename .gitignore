@@ -1,3 +1,5 @@
 run_tests.sh
 *.pyc
 *.csv
+*.log
+*.pdf

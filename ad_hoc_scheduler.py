@@ -35,9 +35,12 @@ def main(sysargv=[]):
     t_arr.append(threading.Thread(target=run_job, args=(cmd,sem,)))
     t_arr[i].daemon = True
     
-    #wait until enough threads have finished
+    #wait until enough threads have finished to start another
     sem.acquire()
     t_arr[i].start()
+    
+  #wait until the last thread is finished to exit
+  t_arr[-1].join()
 
 
 if __name__ == "__main__":
