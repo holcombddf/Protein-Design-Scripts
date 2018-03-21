@@ -22,23 +22,35 @@ Takes as an argument a path to the PDB file to convert.
 Produces a spreadsheet of the desired columns from all the score files in a desired directory.  
 To change the columns, edit the INDICES variable.  
 Takes as an argument a path to the directory containing the score files.  
-Can be given a second argument, which is a path to a list of column labels.
+Can be given a second argument, which is a path to a list of column headers.
 
 ## csv_sorter_and_top_10.py
 Produces a spreadsheet containing the top NUM lines of an input spreadsheet, sorted on column COL. Designed to be used after score_data_extractor.py.  
 The spreadsheet to be sorted should be named "[folder name]_collected_scores.csv", where [folder name] gives the name of the folder containing the spreadsheet.  
 To change the number of lines to be output or the column to sort on, change variables NUM or COL, respectively.  
 Takes as an argument a path to the directory containing the spreadsheet to be sorted, or a path to the spreadsheet to be sorted.  
-Can be given a second argument, which is the column label to sort on.
+Can be given a second argument, which is the column header to sort on.
 
 ## process_score_files.sh
 Runs score_data_extractor.py and csv_sorter_and_top_10.py in each subdirectory of a given directory.  
 Takes as an argument the path to the directory containing all subdirectories.  
-Can be given a second argument, which is a list of column labels.  
-Can be given a third argument, which is the column label to sort on.
+Can be given a second argument, which is a list of column headers.  
+Can be given a third argument, which is the column header to sort on.
 
 ## process_score_files.py
 Same as process_score_files.sh, but written in python.
 
 ## util.py
 Contains frequently used utility functions for running the other scripts.
+
+## visualize_score_data.r
+Produces a scatterplot for two variables in a spreadsheet.  
+Takes as arguments the spreadsheet (.csv) to read from, the name of the x-variable column header, and the name of the y-variable column header.
+
+## ad_hoc_scheduler.py (Untested)
+Creates threads for jobs (bash commands), limited to TLIM threads and total ~MLIM memory at a time. Uses a bounded semaphore for thread limiting, and lock for memory limiting.  
+Can take as arguments an integer representing the thread limit, and a float representing the total memory limit (in GB).   
+Change the GENERATE FILELIST HERE and GENERATE CMD HERE sections to suit your needs.
+
+## queue_scheduler.py (Untested)
+Same as ad_hoc_scheduler.py, but uses a queue to manage thread limits. 
