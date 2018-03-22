@@ -49,8 +49,12 @@ Takes as arguments the spreadsheet (.csv) to read from, the name of the x-variab
 
 ## ad_hoc_scheduler.py (Untested)
 Creates threads for jobs (bash commands), limited to TLIM threads and total ~MLIM memory at a time. Uses a bounded semaphore for thread limiting, and lock for memory limiting.  
-Can take as arguments an integer representing the thread limit, and a float representing the total memory limit (in GB).   
+Can take as arguments an integer representing the thread limit, and a float representing the total memory limit (in GB).  
 Change the GENERATE FILELIST HERE and GENERATE CMD HERE sections to suit your needs.
 
 ## queue_scheduler.py (Untested)
 Same as ad_hoc_scheduler.py, but uses a queue to manage thread limits. 
+
+## run_tests.sh
+Tests all other scripts, using Testing as a data source.  
+Can be given as an argument, a path to the directory containing the testing data.
