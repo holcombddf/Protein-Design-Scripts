@@ -67,5 +67,5 @@ if [ "$NUMLINES" -gt 1 ]; then
   echo "Errors found. See err.log for details."
 fi
 
-python cleanup.py $DIR
-python cleanup.py $TESTDIR
+#python cleanup.py $DIR 
+#python cleanup.py $TESTDIR

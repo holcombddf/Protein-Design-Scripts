@@ -15,7 +15,7 @@ def rec_del(directory,ext_array):
       for ext in ext_array:
 	delflag = delflag or f.endswith(ext)
       if delflag:
-	print f
+	print "Removing "+f
 	os.remove(f)
 def main(sysargv=[]):
   if len(sysargv) > 0:
