@@ -56,5 +56,5 @@ Change the GENERATE FILELIST HERE and GENERATE CMD HERE sections to suit your ne
 Same as ad_hoc_scheduler.py, but uses a queue to manage thread limits. 
 
 ## run_tests.sh
-Tests all other scripts, using Testing as a data source.  
-Can be given as an argument, a path to the directory containing the testing data.
+Tests all other scripts, using qa as a data source.  
+Can be given as an argument, a path to the directory containing the scripts (src), and a path to the directory containing the testing data (qa).
