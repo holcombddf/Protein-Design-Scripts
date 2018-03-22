@@ -41,7 +41,7 @@ def main(sysargv=[]):
   outfile = open(path + directory + "_collected_scores.csv", 'w')
 
   #read each file
-  util.extract_score_data(filelist, outfile, INDICES, col_labels, labels)
+  labels, INDICES = util.extract_score_data(filelist, outfile, INDICES, col_labels, labels)
 
 if __name__ == "__main__":
   main(sys.argv[1:])

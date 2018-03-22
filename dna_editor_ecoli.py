@@ -1,7 +1,9 @@
 #!/usr/bin/python
 import sys
+import os
 import re
 import util
+import argparse
 
 #utility function that converts the amino acid into the corresponding dna codon for E Coli
 def aa_to_dna(dna_seq, location, amino_acid):
@@ -49,12 +51,24 @@ def aa_to_dna(dna_seq, location, amino_acid):
   dna_seq = dna_seq[:location] + replacement + dna_seq[location+3:]
   return dna_seq
 
+def parse_args(sysargv=[]):
+  parser = argparse.ArgumentParser()
+  parser.add_argument("--infile", metavar='FILE', type=str, default=None, action="store", help="file containing the changes to read")
+  parser.add_argument("--outfile", metavar='FILE', type=str, default=None, action="store", help="file to write the output to")
+  return parser.parse_args()
+
 def main(sysargv=[]):
+  args = parse_args(sysargv)
   #arguments should be the file to read from and the file to write to, respectively
   #input file has one line of the amino acid sequence, one line of the dna sequence, and multiple lines consisting of changes to the amino acid sequence formatted as follows: the location of the amino acid to be replaced, the amino acid to be replaced, and the new amino acid to replace with: example: 25 A->G
 
-  dataFile = util.get_file(sysargv, 0, "r", "input")
-  outFile = util.get_file(sysargv, 1, "w", "output")
+  dataFile = util.get_file2(args.infile, "r", "input")
+  if args.outfile is not None:
+    outFile = util.get_file2(args.outfile, "w", "output")
+  else:
+    directory = os.path.dirname(dataFile.name)
+    directory = os.path.join(directory, "")
+    outFile = util.get_file2(directory+"outfile.txt", "w", "output")
 
   amino_seq = (dataFile.readline()).rstrip()
   dna_seq = (dataFile.readline()).rstrip()

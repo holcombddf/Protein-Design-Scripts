@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#This script will run a number of jobs, limited to TLIM threads and MLIM memory. As threads finish, it will run new jobs.
+#This script will run a number of jobs, limited to TLIM threads and ~MLIM memory. As threads finish, it will run new jobs.
 #Can take integers as arguments as limits to the number of threads and the memory limit, respectively.
 #Change the GENERATE FILELIST HERE and GENERATE CMD HERE sections
 import sys
@@ -49,14 +49,18 @@ def main(sysargv=[]):
   q = Queue() #queue of commands
   lock = Lock()
   
+  #################################################
   ##GENERATE FILELIST HERE
   filelist = []
+  #################################################
   
   #put each command on the queue
   for i,f in enumerate(filelist): #i is the counter, f is the filename
     
+    #################################################
     ##GENERATE CMD HERE
     cmd = "echo \"stuff\""
+    #################################################
 
     q.put(cmd)
   

@@ -21,6 +21,14 @@ def get_file(sysargv, index=0, mode="r", filetype=""):
   read_file = openfile(path, mode)
   return read_file
 
+def get_file2(filename, mode="r", filetype=""): 
+  try:
+    read_file = openfile(filename, mode)
+  except:
+    filename = raw_input("Please enter the path to the "+filetype+" file: ")
+    read_file = openfile(filename, mode)
+  return read_file
+
 #open a list of files
 def get_file_list(sysargv, index=2, mode="r", filetype=""):
   filenames = []
@@ -31,6 +39,26 @@ def get_file_list(sysargv, index=2, mode="r", filetype=""):
     filenames = list_of_files.readlines()
     list_of_files.close()
   elif len(sysargv) < index: #user did not give any file info
+    name = raw_input("Please enter the path to a "+filetype+" file, or \"DONE\" to finish: ")
+    while name.upper() != "DONE":
+      filenames.append(name)
+    name = raw_input("Please enter the path to a "+filetype+" file, or \"DONE\" to finish: ")
+  files = []
+  for f in filenames:
+    f = f.rstrip()
+    files.append(openfile(f, mode))
+  return files
+
+#open a list of files
+def get_file_list2(listfile, mode="r", filetype=""):
+  filenames = []
+  if isinstance(listfile, (list, tuple)) and not isinstance(listfile, basestring): #user gave multiple files
+    filenames = listfile
+  elif isinstance(listfile, basestring): #user gave a list of files
+    list_of_files = openfile(listfile, mode)
+    filenames = list_of_files.readlines()
+    list_of_files.close()
+  else: #user did not give any file info
     name = raw_input("Please enter the path to a "+filetype+" file, or \"DONE\" to finish: ")
     while name.upper() != "DONE":
       filenames.append(name)
@@ -97,3 +125,4 @@ def extract_score_data(filelist, outfile, INDICES, col_labels, labels):
 		raise Exception("There aren't enough numerical columns in " + line + "\nfrom file " + file_name)
 	  line = infile.readline()
       infile.close()
+  return (labels, INDICES)

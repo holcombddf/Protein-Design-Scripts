@@ -22,14 +22,27 @@ def find_dif(ref_vals, dif_dict, pdb):
 	  dif.append(difference)
     line = pdb.readline()
   dif_dict[pdb.name]=dif
+  
+def parse_args(sysargv=[]):
+  parser = argparse.ArgumentParser()
+  parser.add_argument("--ref", metavar='FILE', type=str, default=None, action="store", help="reference PDB file to compare all other PDB files to")
+  parser.add_argument("--pdblist", metavar='FILE', type=str, default=None, action="store", help="file containing a list of PDB files to compare to the reference")
+  parser.add_argument("--pdbs", metavar='FILE', type=str, default=None, nargs='+', action="store", help="PDB file(s) to compare to the reference")
+  return parser.parse_args()
 
 def main(sysargv=[]):
+  args = parse_args(sysargv)
+  
   ref_pdb = None
   pdb_files = []
 
   #open PDBs to compare
-  ref_pdb = util.get_file(sysargv, 0, "r", "PDB")
-  pdb_files = util.get_file_list(sysargv, 2)
+  if args.ref is not None:
+    ref_pdb = util.get_file2(args.ref, "r", "PDB")
+  if args.pdblist is not None:
+    pdb_files.extend(util.get_file_list2(args.pdblist, "r", "PDB"))
+  if args.pdbs is not None:
+    pdb_files.extend(util.get_file_list2(args.pdbs, "r", "PDB"))
       
   #open an output file, using the name of the reference PDB
   outfile = open(os.path.splitext(ref_pdb.name)[0] + "_changes_output.txt", "w")

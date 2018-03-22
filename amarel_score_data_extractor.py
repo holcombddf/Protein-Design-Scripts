@@ -45,7 +45,6 @@ def main(sysargv=[]):
 
   #open the file to write to
   outfile = open(path + directory + "_collected_scores.csv", 'w')
-
   #iterate over subdirectories
   for subdir in dirlist:
     #create array of files
@@ -53,7 +52,7 @@ def main(sysargv=[]):
     filelist = []	
     filelist = os.popen("ls " + path + subdir + "*.sc", "r")
 
-    util.extract_score_data(filelist, outfile, INDICES, col_labels, labels)
+    labels, INDICES = util.extract_score_data(filelist, outfile, INDICES, col_labels, labels)   
 	
 if __name__ == "__main__":
   main(sys.argv[1:])

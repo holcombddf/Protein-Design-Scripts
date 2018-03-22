@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#This script will run a number of jobs, limited to TLIM threads and MLIM memory. As threads finish, it will run new jobs.
+#This script will run a number of jobs, limited to TLIM threads and ~MLIM memory. As threads finish, it will run new jobs.
 #Can take integers as arguments as limits to the number of threads and the memory limit, respectively.
 #Change the GENERATE FILELIST HERE and GENERATE CMD HERE sections
 import sys
@@ -36,14 +36,18 @@ def main(sysargv=[]):
   sem = BoundedSemaphore(value=TLIM) #semaphore to control the number of threads
   lock = Lock()
   
+  #################################################
   ##GENERATE FILELIST HERE
   filelist = []
+  #################################################
   
   #run the job for each file
   for i,f in enumerate(filelist): #i is the counter, f is the filename
     
+    #################################################
     ##GENERATE CMD HERE
     cmd = "echo \"stuff\""
+    #################################################
     
     t_arr.append(threading.Thread(target=run_job, args=(cmd,sem,lock,)))
     t_arr[i].daemon = True
