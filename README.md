@@ -5,8 +5,9 @@ March 2018
 
 ## dna_editor_ecoli.py
 Produces the amino acid sequence and DNA resulting from a series of edit mutations, as expressed in E. Coli.  
-It takes in a file formatted as one line of the original amino acid sequence, one line of the original DNA sequence, and a series of lines of edit mutations formatted as: the location of the amino acid to change, the original amino acid, and the amino acid to change to (for example, "25 A->G"). Note that the edit locations are 0-indexed.  
-Takes as arguments the path to the input file and the path to the output file, but also accepts the path from the command line if no arguments are given.
+Takes in an input file with three sections, started by lines containing ">". First section contains the amino acid sequence. Second section contains the DNA sequence. Third section contains the amino acid changes.  
+Amino acid changes should be formatted as a location (either 0-indexed or 1-indexed) with two single letters denoting amino acids (for example 25A>G, 25 A->G, 25AG, etc.) on a single line.  
+Takes as arguments the path to the input file and the path to the output file, but also accepts the path from the command line if no arguments are given. Also takes an an argument whether the locations of the changes are 0-indexed or 1-indexed.
 
 ## pdb_change_parser.py
 Produces a list of amino acid changes for multiple PDB files, relative to a reference PDB.  
