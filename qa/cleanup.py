@@ -27,7 +27,7 @@ def main(sysargv=[]):
   if len(sysargv) > 1:
     ext_array = sysargv[1:]
   else:
-    ext_array = [".pyc", ".csv", ".log", ".pdf"]
+    ext_array = [".pyc", ".csv", ".log", ".pdf", ".rtf"]
 
   rec_del(directory, ext_array)
 
