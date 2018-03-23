@@ -22,7 +22,7 @@ def run_job(cmd, sem, lock):
 
 def main(sysargv=[]):
   TLIM = 50 #the maximum number of concurrent threads
-  MLIM = 20.0 #the memory limit (in GB)
+  MLIM = 1000.0 #the memory limit (in GB)
   if len(sysargv) > 0:
     TLIM = int(sysargv[0])
   if len(sysargv) > 1:

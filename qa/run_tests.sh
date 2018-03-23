@@ -24,7 +24,7 @@ else
   DIR="/home/david_holcomb/Workspace/Protein-Design-Scripts/src"
 fi
 
-#Testing directory
+#testing directory
 if [[ $# -ge 2 ]]; then
   TESTDIR="$2"
 else

@@ -3,20 +3,22 @@
 import os
 import sys
 
+#recursively process each subdirectory
 def rec_del(directory,ext_array):
   for f in os.listdir(directory):
     f = os.path.join(directory,f)
-    if f.endswith(".git"):
+    if f.endswith(".git"): #ignore
       continue
-    elif os.path.isdir(f):
+    elif os.path.isdir(f): #recurse
       rec_del(f,ext_array)
-    else:
+    else: #check if the file is a removable filetype
       delflag = False
       for ext in ext_array:
 	delflag = delflag or f.endswith(ext)
       if delflag:
 	print "Removing "+f
 	os.remove(f)
+	
 def main(sysargv=[]):
   if len(sysargv) > 0:
     directory = sysargv[0]
