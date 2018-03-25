@@ -41,6 +41,8 @@ dt=$(date '+%d/%m/%Y %H:%M:%S')
 echo "Time $dt" > test.log
 echo "Time $dt" > err.log
 
+#start=$(date +%s.%N)
+
 #run the tests
 run_test "process_score_data.py 1 argument" "python $DIR/process_score_data.py --directory $TESTDIR"
 run_test "process_score_data.py 2 arguments" "python $DIR/process_score_data.py --directory $TESTDIR  --headerlist $TESTDIR/column_headers.list"
@@ -62,6 +64,10 @@ run_test "pdb_to_res.py" "python $DIR/pdb_to_res.py $TESTDIR/pdb1.pdb"
 run_test "visualize_score_data.r" "Rscript $DIR/visualize_score_data.r $TESTDIR/job1/job1_collected_scores.csv total_score binding_score"
 run_test "ad_hoc_scheduler.py" "python $DIR/ad_hoc_scheduler.py 45 15"
 run_test "queue_scheduler.py" "python $DIR/queue_scheduler.py 45 15"
+
+#end=$(date +%s.%N)
+#dt=$(echo "$end - $start" | bc)
+#echo "$dt seconds elapsed"
 
 #if the error log file has more than one line, inform the user
 NUMLINES=$(wc -l < "err.log")
