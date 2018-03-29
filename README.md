@@ -41,6 +41,11 @@ Contains frequently used utility functions for running the other scripts.
 Produces a scatterplot for two variables in a spreadsheet.  
 Takes as arguments the spreadsheet (.csv) to read from, the name of the x-variable column header, and the name of the y-variable column header.
 
+## plotter.py
+Plots data in a CSV file.  
+Takes as arguments a path to the CSV file containing the data to plot, and a boolean indicating whether or not the first row of the CSV file contains column headers.  
+Change the part that says CHANGE THIS PART TO SUIT YOUR NEEDS. You may also need to change log_plot and poly_plot, specifically to change the dot size and line width.
+
 ## ad_hoc_scheduler.py (Untested)
 Creates threads for jobs (bash commands), limited to TLIM threads and total ~MLIM memory at a time. Uses a bounded semaphore for thread limiting, and lock for memory limiting.  
 Can take as arguments an integer representing the thread limit, and a float representing the total memory limit (in GB).  
