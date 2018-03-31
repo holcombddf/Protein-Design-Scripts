@@ -75,9 +75,14 @@ def double_print(string, handle):
   handle.write(string + "\n")
   
 #utility function to format and properly space PDB lines
-def format_pdb_line(vals=[]):
-  printline = '{0: <7}'.format(vals[0]) + vals[1].rjust(4) + "  " + '{0: <4}'.format(vals[2]) + '{0: <4}'.format(vals[3]) + '{0: <2}'.format(vals[4]) + vals[5].rjust(3) + "      " + vals[6].rjust(6) + vals[7].rjust(8) + vals[8].rjust(8) + "\t" + '{0: <5}'.format(vals[9]) + '{0: <16}'.format(vals[10]) + vals[11]
-  return printline
+def format_pdb_line(vals):
+  if isinstance(vals, list): #inputs are given as a list
+    printline = '{0: <7}'.format(vals[0]) + vals[1].rjust(4) + "  " + '{0: <4}'.format(vals[2]) + '{0: <4}'.format(vals[3]) + '{0: <2}'.format(vals[4]) + vals[5].rjust(3) + "      " + vals[6].rjust(6) + vals[7].rjust(8) + vals[8].rjust(8) + "\t" + '{0: <5}'.format(vals[9]) + '{0: <16}'.format(vals[10]) + vals[11]
+    return printline
+  elif isinstance(vals, str): #inputs are given as a string
+    return format_pdb_line(re.findall("\S+", vals))
+  else:
+    raise Exception("Unexpected input for formatting.")
   
 def extract_score_data(filelist, outfile, INDICES, col_labels, labels):
   #read each file

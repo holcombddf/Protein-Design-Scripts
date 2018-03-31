@@ -41,6 +41,10 @@ Contains frequently used utility functions for running the other scripts.
 Produces a scatterplot for two variables in a spreadsheet.  
 Takes as arguments the spreadsheet (.csv) to read from, the name of the x-variable column header, and the name of the y-variable column header.
 
+## replace_hetatm.py
+Produces a PDB file by replacing the HETATM lines of one file with the HETATM lines of another file. Keeps the metal HETATM lines the same.  
+Takes as arguments the path to the PDB file with HETATM lines to replace, and the PDB file with HETATM lines to replace with. Can also accept the name of the HETATM lines to replace with, if specified. Otherwise, it will replace with all HETATM lines whose names have three characters.
+
 ## plotter.py
 Plots data in a CSV file.  
 Takes as arguments a path to the CSV file containing the data to plot, and a boolean indicating whether or not the first row of the CSV file contains column headers.  
