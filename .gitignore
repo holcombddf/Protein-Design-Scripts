@@ -1,5 +1,5 @@
 *.pyc
-*.csv
+*scores.csv
 *.log
 *.pdf
 *.png
