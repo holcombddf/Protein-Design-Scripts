@@ -1,6 +1,6 @@
 #!/bin/python
 #Creates a graph for all data in a given CSV, using the first column as the x-values, and all other columns as the y-values for the plots. Change the sizing and plotting to suit your needs. 
-import sys,re
+import sys,re,os
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -156,7 +156,7 @@ def main(sysargv=[]):
   #################################################
 
   #create and save the graph
-  fig.savefig("figure")
+  fig.savefig(os.path.join(os.path.dirname(args.csv), "figure")) #saves the figure in the same directory as the data source
   plt.close()
 
 if __name__ == "__main__":
