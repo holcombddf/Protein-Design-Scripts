@@ -7,34 +7,47 @@ import numpy as np
 import csv
 import argparse
 
-#plots scatterplot and logarithmic regression
-def log_plot(x, y, ax, label="", d=1, c="black"): #x data, y data, the axis to plot on, label, the degree of the polynomial, and the color
-  l = min([len(x), len(y)])
-  fit = np.polyfit(np.log(x[:l]), y[:l], deg=d) #seems to work whether or not set_yscale is 'log'
-  fity = []
-  for t in x[:l]:
-    val = 0
-    for i, b in enumerate(fit):
-      val = val + fit[i] * ((np.log(t)) ** (len(fit)-1-i))
-    fity.append(val)
-  ax.scatter(x[:l], y[:l], c=c, s=75) #change s to make the dots on the scatterplot bigger
-  ax.plot(x[:l], fity, color=c, label=label, linewidth=3.0) #change linewidth to make the line for the plot thicker
-  
-#plots scatterplot and polynomial regression
-def poly_plot(x, y, ax, label="", d=1, c="black"):
-  l = min([len(x), len(y)])
-  if ax.get_yscale() == 'log':
-    fit = np.polyfit(x[:l], [np.log10(z) for z in y[:l]], deg=d)
-  else:
-    fit = np.polyfit(x[:l], y[:l], deg=d)
-  fity = []
-  for t in x[:l]:
-    val = 0
-    for i, b in enumerate(fit): #build the y-value from the polynomial
-      val = val + fit[i] * (t ** (len(fit)-1-i))
-    fity.append(10 ** val)
-  ax.scatter(x[:l], y[:l], c=c, s=75) #change s to make the dots on the scatterplot bigger
-  ax.plot(x[:l], fity, color=c, label=label, linewidth=3.0) #change linewidth to make the line for the plot thicker
+class Plotter:
+  def __init__(self, ax, s=20, linewidth=1.0):
+    self.ax = ax
+    self.s = s
+    self.linewidth = linewidth
+
+  #plots scatterplot and logarithmic regression
+  def log_plot(self, x, y, label="", d=1, c="black", scatter=True, plot=True): #x data, y data, the axis to plot on, label, the degree of the polynomial, and the color
+    l = min([len(x), len(y)])
+    fit = np.polyfit(np.log(x[:l]), y[:l], deg=d) #seems to work whether or not set_yscale is 'log'
+    fity = []
+    for t in x[:l]:
+      val = 0
+      for i, b in enumerate(fit):
+	val = val + fit[i] * ((np.log(t)) ** (len(fit)-1-i))
+      fity.append(val)
+    if scatter:
+      self.ax.scatter(x[:l], y[:l], c=c, s=self.s) #change s to make the dots on the scatterplot bigger
+    if plot:
+      self.ax.plot(x[:l], fity, color=c, label=label, linewidth=self.linewidth) #change linewidth to make the line for the plot thicker
+    
+  #plots scatterplot and polynomial regression
+  def poly_plot(self, x, y, label="", d=1, c="black", scatter=True, plot=True):
+    l = min([len(x), len(y)])
+    if self.ax.get_yscale() == 'log':
+      fit = np.polyfit(x[:l], [np.log10(z) for z in y[:l]], deg=d)
+    else:
+      fit = np.polyfit(x[:l], y[:l], deg=d)
+    fity = []
+    for t in x[:l]:
+      val = 0
+      for i, b in enumerate(fit): #build the y-value from the polynomial
+	val = val + fit[i] * (t ** (len(fit)-1-i))
+      if self.ax.get_yscale() == 'log':
+	fity.append(10 ** val)
+      else:
+	fity.append(val)
+    if scatter:
+      self.ax.scatter(x[:l], y[:l], c=c, s=self.s) #change s to make the dots on the scatterplot bigger
+    if plot:
+      self.ax.plot(x[:l], fity, color=c, label=label, linewidth=self.linewidth) #change linewidth to make the line for the plot thicker
   
 #transposes a data frame, assuming the data is float
 def reverse_frame(data):
@@ -44,7 +57,6 @@ def reverse_frame(data):
       try:
 	yval = float(row[i])
 	newdata[i].append(yval)
-	
       except:
 	pass
   return newdata
@@ -117,6 +129,7 @@ def main(sysargv=[]):
   #################################################
   #CHANGE THIS PART TO SUIT YOUR NEEDS
   fig,ax=plt.subplots(figsize=(20, 10)) #adjusts the figure size
+  My_Plotter = Plotter(ax, 75, 3.0) #adjusts the scatterplot point size and regression line width
   ax.set_yscale('log') #creates a logarithmic scale for the y-axis
 
   matplotlib.rcParams.update({'font.size': 30}) #adjusts the font size
@@ -127,16 +140,17 @@ def main(sysargv=[]):
   plt.ylabel("Hydrodynamic Radius (nm); Volume")
   
   #this part actually plots the data, using a scatterplot and a best fit polynomial or logarithmic
-  log_plot(x, y[0], ax, "2000 $\mu$M ATP", 3, "red")
-  log_plot(x, y[1], ax, "500 $\mu$M ATP", 4, "blue")
-  poly_plot(x, y[2], ax, "250 $\mu$M ATP", 8, "orange")
-  poly_plot(x, y[3], ax, "100 $\mu$M ATP", 3, "green")
-  poly_plot(x, y[4], ax, "50 $\mu$M ATP", 2, "magenta")
-  poly_plot(x, y[5], ax, "0 $\mu$M ATP", 1, "black")
+  #arguments are the x data array, the y data array, the label, the degree of the polynomial, and the color on the graph
+  My_Plotter.log_plot(x, y[0], "2000 $\mu$M ATP", 3, "red") 
+  My_Plotter.log_plot(x, y[1], "500 $\mu$M ATP", 4, "blue")
+  My_Plotter.poly_plot(x, y[2], "250 $\mu$M ATP", 8, "orange")
+  My_Plotter.poly_plot(x, y[3], "100 $\mu$M ATP", 3, "green")
+  My_Plotter.poly_plot(x, y[4], "50 $\mu$M ATP", 2, "magenta")
+  My_Plotter.poly_plot(x, y[5], "0 $\mu$M ATP", 1, "black")
 
   #put the legend in the right side of the graph
   box = ax.get_position()
-  ax.set_position([box.x0, box.y0, box.width * 0.78, box.height]) #change box.width so that legend fits
+  ax.set_position([box.x0, box.y0, box.width * 0.78, box.height]) #change box.width scaling so that legend fits
   ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
   #################################################
   #################################################
