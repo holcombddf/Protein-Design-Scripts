@@ -41,7 +41,7 @@ dt=$(date '+%d/%m/%Y %H:%M:%S')
 echo "Time $dt" > test.log
 echo "Time $dt" > err.log
 
-#start=$(date +%s.%N)
+start=$(date +%s.%N)
 
 #run the tests
 run_test "process_score_data.py 1 argument" "python $DIR/process_score_data.py --directory $TESTDIR"
@@ -61,13 +61,17 @@ run_test "pdb_change_parser.py list" "python $DIR/pdb_change_parser.py --ref $TE
 run_test "pdb_change_parser.py files" "python $DIR/pdb_change_parser.py --ref $TESTDIR/pdb1.pdb --pdbs $TESTDIR/pdb2.pdb $TESTDIR/pdb3.pdb $TESTDIR/pdb4.pdb"
 run_test "pdb_change_parser.py gz" "python $DIR/pdb_change_parser.py --ref $TESTDIR/pdb.pdb.gz --pdblist $TESTDIR/pdbs.list"
 run_test "pdb_to_res.py" "python $DIR/pdb_to_res.py $TESTDIR/pdb1.pdb"
+run_test "plotter.py true" "python $DIR/plotter.py --csv $TESTDIR/data.csv --header true"
+run_test "plotter.py false" "python $DIR/plotter.py --csv $TESTDIR/data.csv --header false"
+run_test "replace_hetatm.py 2 arguments" "python $DIR/replace_hetatm.py --before $TESTDIR/pdb_before.pdb --after $TESTDIR/pdb_after.pdb"
+run_test "replace_hetatm.py 3 arguments" "python $DIR/replace_hetatm.py --before $TESTDIR/pdb_before.pdb --after $TESTDIR/pdb_after.pdb --drug LG1"
 run_test "visualize_score_data.r" "Rscript $DIR/visualize_score_data.r $TESTDIR/job1/job1_collected_scores.csv total_score binding_score"
 run_test "ad_hoc_scheduler.py" "python $DIR/ad_hoc_scheduler.py 45 15"
 run_test "queue_scheduler.py" "python $DIR/queue_scheduler.py 45 15"
 
-#end=$(date +%s.%N)
-#dt=$(echo "$end - $start" | bc)
-#echo "$dt seconds elapsed"
+end=$(date +%s.%N)
+dt=$(echo "$end - $start" | bc)
+echo "$dt seconds elapsed."
 
 #if the error log file has more than one line, inform the user
 NUMLINES=$(wc -l < "err.log")
