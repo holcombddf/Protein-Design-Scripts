@@ -21,14 +21,14 @@ run_test(){
 if [[ $# -ge 1 ]]; then
   DIR="$1"
 else
-  DIR="/home/david_holcomb/Workspace/Protein-Design-Scripts/src"
+  DIR="/home/davidholcomb/Documents/Workspace/Protein-Design-Scripts/src"
 fi
 
 #testing directory
 if [[ $# -ge 2 ]]; then
   TESTDIR="$2"
 else
-  TESTDIR="/home/david_holcomb/Workspace/Protein-Design-Scripts/qa"
+  TESTDIR="/home/davidholcomb/Documents/Workspace/Protein-Design-Scripts/qa"
 fi
 
 #write the pdblist, using the testing directory

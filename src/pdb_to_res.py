@@ -17,11 +17,13 @@ def main(sysargv):
   pdb_lines = pdb_file.readlines()
   for line in pdb_lines:
     if re.match("ATOM", line) or re.match("HETATM", line):
-      cols = re.findall("\S+", line)
-      if len(cols) > 5:
+      cols = re.findall("\S+", line) #does not find the right columns when there is no whitespace separating them
+      try:
 	key = (cols[4],int(cols[5]))
 	if key not in line_dict:
 	  line_dict[key] = "NATAA"
+      except:
+	pass
     
   #write data to RES file
   res_file.write("USE_INPUT_SC\nEX 1 EX 2\nstart\n")
