@@ -8,9 +8,9 @@ import gzip
 def openfile(filename, mode="r"):
   ext = os.path.splitext(filename)[-1]
   if ext == ".gz":
-    return gzip.open(filename, mode)
+    return(gzip.open(filename, mode))
   else:
-    return open(filename, mode)
+    return(open(filename, mode))
 
 #open file
 def get_file(sysargv, index=0, mode="r", filetype=""): 
@@ -19,7 +19,7 @@ def get_file(sysargv, index=0, mode="r", filetype=""):
   else:
     path = raw_input("Please enter the path to the "+filetype+" file: ")
   read_file = openfile(path, mode)
-  return read_file
+  return(read_file)
 
 def get_file2(filename, mode="r", filetype=""): 
   try:
@@ -27,7 +27,7 @@ def get_file2(filename, mode="r", filetype=""):
   except:
     filename = raw_input("Please enter the path to the "+filetype+" file: ")
     read_file = openfile(filename, mode)
-  return read_file
+  return(read_file)
 
 #open a list of files
 def get_file_list(sysargv, index=2, mode="r", filetype=""):
@@ -47,7 +47,7 @@ def get_file_list(sysargv, index=2, mode="r", filetype=""):
   for f in filenames:
     f = f.rstrip()
     files.append(openfile(f, mode))
-  return files
+  return(files)
 
 #open a list of files
 def get_file_list2(listfile, mode="r", filetype=""):
@@ -67,20 +67,20 @@ def get_file_list2(listfile, mode="r", filetype=""):
   for f in filenames:
     f = f.rstrip()
     files.append(openfile(f, mode))
-  return files
+  return(files)
     
 #print to both console and output file
 def double_print(string, handle):
-  print string
+  print(string)
   handle.write(string + "\n")
   
 #utility function to format and properly space PDB lines
 def format_pdb_line(vals):
   if isinstance(vals, list): #inputs are given as a list
     printline = '{0: <7}'.format(vals[0]) + vals[1].rjust(4) + "  " + '{0: <4}'.format(vals[2]) + '{0: <4}'.format(vals[3]) + '{0: <2}'.format(vals[4]) + vals[5].rjust(3) + "      " + vals[6].rjust(6) + vals[7].rjust(8) + vals[8].rjust(8) + "\t" + '{0: <5}'.format(vals[9]) + '{0: <16}'.format(vals[10]) + vals[11]
-    return printline
+    return(printline)
   elif isinstance(vals, str): #inputs are given as a string
-    return format_pdb_line(re.findall("\S+", vals))
+    return(format_pdb_line(re.findall("\S+", vals)))
   else:
     raise Exception("Unexpected input for formatting.")
   
@@ -135,4 +135,4 @@ def extract_score_data(filelist, outfile, INDICES, col_labels, labels):
 		raise Exception("There aren't enough numerical columns in " + line + "\nfrom file " + file_name)
 	  line = infile.readline()
       infile.close()
-  return (labels, INDICES)
+  return(labels, INDICES)

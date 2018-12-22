@@ -31,7 +31,7 @@ def parse_args(sysargv=[]):
   parser.add_argument("--headerlist", metavar='FILE', type=str, default=None, action="store", help="file containing a list of column headers indicating which columns to extract")
   parser.add_argument("--headers", type=str, default=None, nargs='+', action="store", help="column header(s) indicating which columns to extract")
   parser.add_argument("--sortheader", type=str, default=None, action="store", help="column header to sort the spreadsheet data on")
-  return parser.parse_args()
+  return(parser.parse_args())
 
 def main(sysargv=[]):
   args = parse_args(sysargv)
@@ -46,7 +46,7 @@ def main(sysargv=[]):
       subdir.strip()
       os.path.join(subdir, "")
       if os.path.isdir(subdir) and os.path.normpath(subdir) != os.path.normpath(directory):
-	print subdir
+	print(subdir)
 	runargs=(subdir, args.headerlist, args.headers, args.sortheader,)
 	t = threading.Thread(target=run_scripts, args=runargs)
 	t.start()

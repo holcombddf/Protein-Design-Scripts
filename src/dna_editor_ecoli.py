@@ -49,7 +49,7 @@ def aa_to_dna(amino_acid):
     replacement = "CTT"
   else:
     raise Exception("Unaccounted amino acid: " + amino_acid)
-  return replacement
+  return(replacement)
 
 #function to process the edits and print the resulting sequences, highlighting the edited parts
 def print_with_colors(amino_seq, dna_seq, editlist, colorstart, colorend, endline="", endfile="", handle=None):
@@ -71,9 +71,9 @@ def print_with_colors(amino_seq, dna_seq, editlist, colorstart, colorend, endlin
       numedits = numedits + 1 #number of edits already processed
       
     if handle is None: #print to console
-      print copy_aa_seq + endline
-      print copy_dna_seq + endline
-      print endfile
+      print(copy_aa_seq + endline)
+      print(copy_dna_seq + endline)
+      print(endfile)
     else: #write to file handle
       handle.write(copy_aa_seq+endline)
       handle.write(copy_dna_seq+endline)
@@ -84,7 +84,7 @@ def parse_args(sysargv=[]):
   parser.add_argument("--infile", metavar='FILE', type=str, default=None, action="store", help="file containing the changes to read")
   parser.add_argument("--outfile", metavar='FILE', type=str, default=None, action="store", help="file to write the output to")
   parser.add_argument("--index", type=int, default=0, action="store", help="determines whether the input file is 0-indexed or 1-indexed")
-  return parser.parse_args()
+  return(parser.parse_args())
 
 def main(sysargv=[]):
   

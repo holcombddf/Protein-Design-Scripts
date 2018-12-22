@@ -44,30 +44,30 @@ echo "Time $dt" > err.log
 start=$(date +%s.%N)
 
 #run the tests
-run_test "process_score_data.py 1 argument" "python $DIR/process_score_data.py --directory $TESTDIR"
-run_test "process_score_data.py 2 arguments" "python $DIR/process_score_data.py --directory $TESTDIR  --headerlist $TESTDIR/column_headers.list"
-run_test "process_score_data.py 3 arguments" "python $DIR/process_score_data.py --directory $TESTDIR --headers total_score RMSD_WT binding_score catalytic_score specificity_score --sortheader total_score"
-run_test "process_score_data.py 3 arguments list" "python $DIR/process_score_data.py --directory $TESTDIR --headerlist $TESTDIR/column_headers.list --sortheader total_score"
-run_test "amarel_score_data_extractor.py" "python $DIR/amarel_score_data_extractor.py $TESTDIR $TESTDIR/column_headers.list"
-run_test "score_data_extractor.py list" "python $DIR/score_data_extractor.py $TESTDIR/job1/ $TESTDIR/column_headers.list"
-run_test "score_data_extractor.py labels" "python $DIR/score_data_extractor.py $TESTDIR/job1/ total_score RMSD_WT binding_score catalytic_score specificity_score"
-run_test "csv_sorter_and_top_10.py file" "python $DIR/csv_sorter_and_top_10.py $TESTDIR/job1/job1_collected_scores.csv"
-run_test "csv_sorter_and_top_10.py folder and label" "python $DIR/csv_sorter_and_top_10.py $TESTDIR/job1/ total_score"
-run_test "dna_editor_ecoli.py 2 arguments 0-indexed" "python $DIR/dna_editor_ecoli.py --infile $TESTDIR/amino_acid_edits_0.txt --outfile $TESTDIR/dna_editor_ecoli_output_20.txt"
-run_test "dna_editor_ecoli.py 1 argument 0-indexed" "python $DIR/dna_editor_ecoli.py --infile $TESTDIR/amino_acid_edits_0.txt"
-run_test "dna_editor_ecoli.py 3 arguments 1-indexed" "python $DIR/dna_editor_ecoli.py --infile $TESTDIR/amino_acid_edits_1.txt --outfile $TESTDIR/dna_editor_ecoli_output_31.txt --index 1"
-run_test "dna_editor_ecoli.py 2 argument 1-indexed" "python $DIR/dna_editor_ecoli.py --infile $TESTDIR/amino_acid_edits_1.txt --index 1"
-run_test "pdb_change_parser.py list" "python $DIR/pdb_change_parser.py --ref $TESTDIR/pdb1.pdb --pdblist $TESTDIR/pdbs.list"
-run_test "pdb_change_parser.py files" "python $DIR/pdb_change_parser.py --ref $TESTDIR/pdb1.pdb --pdbs $TESTDIR/pdb2.pdb $TESTDIR/pdb3.pdb $TESTDIR/pdb4.pdb"
-run_test "pdb_change_parser.py gz" "python $DIR/pdb_change_parser.py --ref $TESTDIR/pdb.pdb.gz --pdblist $TESTDIR/pdbs.list"
-run_test "pdb_to_res.py" "python $DIR/pdb_to_res.py $TESTDIR/pdb1.pdb"
-run_test "plotter.py true" "python $DIR/plotter.py --csv $TESTDIR/data.csv --header true"
-run_test "plotter.py false" "python $DIR/plotter.py --csv $TESTDIR/data.csv --header false"
-run_test "replace_hetatm.py 2 arguments" "python $DIR/replace_hetatm.py --before $TESTDIR/pdb_before.pdb --after $TESTDIR/pdb_after.pdb"
-run_test "replace_hetatm.py 3 arguments" "python $DIR/replace_hetatm.py --before $TESTDIR/pdb_before.pdb --after $TESTDIR/pdb_after.pdb --drug LG1"
+run_test "process_score_data.py 1 argument" "python3 $DIR/process_score_data.py --directory $TESTDIR"
+run_test "process_score_data.py 2 arguments" "python3 $DIR/process_score_data.py --directory $TESTDIR  --headerlist $TESTDIR/column_headers.list"
+run_test "process_score_data.py 3 arguments" "python3 $DIR/process_score_data.py --directory $TESTDIR --headers total_score RMSD_WT binding_score catalytic_score specificity_score --sortheader total_score"
+run_test "process_score_data.py 3 arguments list" "python3 $DIR/process_score_data.py --directory $TESTDIR --headerlist $TESTDIR/column_headers.list --sortheader total_score"
+run_test "amarel_score_data_extractor.py" "python3 $DIR/amarel_score_data_extractor.py $TESTDIR $TESTDIR/column_headers.list"
+run_test "score_data_extractor.py list" "python3 $DIR/score_data_extractor.py $TESTDIR/job1/ $TESTDIR/column_headers.list"
+run_test "score_data_extractor.py labels" "python3 $DIR/score_data_extractor.py $TESTDIR/job1/ total_score RMSD_WT binding_score catalytic_score specificity_score"
+run_test "csv_sorter_and_top_10.py file" "python3 $DIR/csv_sorter_and_top_10.py $TESTDIR/job1/job1_collected_scores.csv"
+run_test "csv_sorter_and_top_10.py folder and label" "python3 $DIR/csv_sorter_and_top_10.py $TESTDIR/job1/ total_score"
+run_test "dna_editor_ecoli.py 2 arguments 0-indexed" "python3 $DIR/dna_editor_ecoli.py --infile $TESTDIR/amino_acid_edits_0.txt --outfile $TESTDIR/dna_editor_ecoli_output_20.txt"
+run_test "dna_editor_ecoli.py 1 argument 0-indexed" "python3 $DIR/dna_editor_ecoli.py --infile $TESTDIR/amino_acid_edits_0.txt"
+run_test "dna_editor_ecoli.py 3 arguments 1-indexed" "python3 $DIR/dna_editor_ecoli.py --infile $TESTDIR/amino_acid_edits_1.txt --outfile $TESTDIR/dna_editor_ecoli_output_31.txt --index 1"
+run_test "dna_editor_ecoli.py 2 argument 1-indexed" "python3 $DIR/dna_editor_ecoli.py --infile $TESTDIR/amino_acid_edits_1.txt --index 1"
+run_test "pdb_change_parser.py list" "python3 $DIR/pdb_change_parser.py --ref $TESTDIR/pdb1.pdb --pdblist $TESTDIR/pdbs.list"
+run_test "pdb_change_parser.py files" "python3 $DIR/pdb_change_parser.py --ref $TESTDIR/pdb1.pdb --pdbs $TESTDIR/pdb2.pdb $TESTDIR/pdb3.pdb $TESTDIR/pdb4.pdb"
+run_test "pdb_change_parser.py gz" "python3 $DIR/pdb_change_parser.py --ref $TESTDIR/pdb.pdb.gz --pdblist $TESTDIR/pdbs.list"
+run_test "pdb_to_res.py" "python3 $DIR/pdb_to_res.py $TESTDIR/pdb1.pdb"
+run_test "plotter.py true" "python3 $DIR/plotter.py --csv $TESTDIR/data.csv --header true"
+run_test "plotter.py false" "python3 $DIR/plotter.py --csv $TESTDIR/data.csv --header false"
+run_test "replace_hetatm.py 2 arguments" "python3 $DIR/replace_hetatm.py --before $TESTDIR/pdb_before.pdb --after $TESTDIR/pdb_after.pdb"
+run_test "replace_hetatm.py 3 arguments" "python3 $DIR/replace_hetatm.py --before $TESTDIR/pdb_before.pdb --after $TESTDIR/pdb_after.pdb --drug LG1"
 run_test "visualize_score_data.r" "Rscript $DIR/visualize_score_data.r $TESTDIR/job1/job1_collected_scores.csv total_score binding_score"
-run_test "ad_hoc_scheduler.py" "python $DIR/ad_hoc_scheduler.py 45 15"
-run_test "queue_scheduler.py" "python $DIR/queue_scheduler.py 45 15"
+run_test "ad_hoc_scheduler.py" "python3 $DIR/ad_hoc_scheduler.py 45 15"
+run_test "queue_scheduler.py" "python3 $DIR/queue_scheduler.py 45 15"
 
 end=$(date +%s.%N)
 dt=$(echo "$end - $start" | bc)
@@ -79,5 +79,5 @@ if [ "$NUMLINES" -gt 1 ]; then
   echo "Errors found. See err.log for details."
 fi
 
-#python cleanup.py $DIR 
-#python cleanup.py $TESTDIR
+#python3 cleanup.py $DIR 
+#python3 cleanup.py $TESTDIR

@@ -59,7 +59,7 @@ def reverse_frame(data):
 	newdata[i].append(yval)
       except:
 	pass
-  return newdata
+  return(newdata)
 
 #returns an array containing the current min and max
 def compare_range(xval, xran):
@@ -74,20 +74,20 @@ def compare_range(xval, xran):
     xran[1] = xval
   elif xval < xran[0]:
     xran[0] = xval
-  return xran
+  return(xran)
 
 def eval_str_f(string): #defaults to false if it doesn't find true
     string = (string.strip()).lower()
     if string == "true" or string == "1" or string == "t":
-      return True
+      return(True)
     else: 
-      return False
+      return(False)
 
 def parse_args(sysargv):
   parser = argparse.ArgumentParser()
   parser.add_argument("--csv", metavar='FILE', type=str, default=None, action="store", help="file containing the data to graph")
   parser.add_argument("--header", metavar='BOOL', type = str, default="false", action="store", help="whether or not the first row of the CSV file contains column headers")
-  return parser.parse_args()
+  return(parser.parse_args())
   
 def main(sysargv=[]):
   args = parse_args(sysargv)
@@ -123,7 +123,7 @@ def main(sysargv=[]):
 	    #find the y minimum and maximum
 	    yran = compare_range(yval, yran)
 	except Exception as e:
-	  print str(e)
+	  print(str(e))
 
   #################################################
   #################################################

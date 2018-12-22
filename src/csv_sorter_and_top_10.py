@@ -28,7 +28,7 @@ def main(sysargv=[]):
     infile = open(sysargv[0], "r")
     outfile = open(path + "sorted_" + filename, "w")
   else:
-    print "Fart"
+    print("Can't find file or directory to process.")
 
   #read the file_lines
   file_lines = infile.readlines()

@@ -32,8 +32,8 @@ def main(sysargv=[]):
     if len(sysargv) > 2:
       col_labels = sysargv[1:]
   except Exception as e:
-    print str(e)
-    print "Error opening column index list. Reverting to default column indices."
+    print(str(e))
+    print("Error opening column index list. Reverting to default column indices.")
     col_labels = []
     
   #create array of subdirectories

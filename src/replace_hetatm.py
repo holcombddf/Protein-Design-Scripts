@@ -11,7 +11,7 @@ def parse_args(sysargv=[]):
   parser.add_argument("--before", metavar='FILE', type=str, default=None, action="store", help="file containing the PDB file whose HETATM lines should be replaced")
   parser.add_argument("--after", metavar='FILE', type=str, default=None, action="store", help="file containing the PDB file whose HETATM lines we want to use")
   parser.add_argument("--drug", type=str, default="", action="store", help="name of the drug in the HETATM lines of the after file")
-  return parser.parse_args()
+  return(parser.parse_args())
 
 def main(sysargv=[]):
   
