@@ -42,14 +42,14 @@ def main(sysargv=[]):
       value = value.rstrip()
       value = value.rstrip(',')
       if (sysargv[1].rstrip()).lower() == value.lower():
-	COL = i
+        COL = i
     
   #delete the labels, so we can sort on values
   del file_lines[0]
 
   max_lines = [];
   #find the lines with the NUM largest values in the COL column
-  for i in xrange(0, NUM):
+  for i in range(0, NUM):
     if not file_lines:
       break
     max_val = 0
@@ -57,9 +57,9 @@ def main(sysargv=[]):
     #find line with the largest value in the COL column
     for i, line in enumerate(file_lines):
       values = line.split(',')
-      if (values[COL] > max_val or max_index > len(file_lines)):
-	    max_val = values[COL]
-	    max_index = i
+      if (float(values[COL]) > max_val or max_index > len(file_lines)):
+        max_val = float(values[COL])
+        max_index = i
     #add line with largest value to return array and remove from search array
     max_lines.append((file_lines[max_index]).rstrip()) 
     del file_lines[max_index]

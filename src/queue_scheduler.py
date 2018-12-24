@@ -7,7 +7,7 @@ import os
 import threading
 import resource
 from threading import Lock
-from Queue import Queue
+from multiprocessing import Queue
 #import psutil
 
 #grabs a command from the queue, and runs it
@@ -29,9 +29,9 @@ def worker(q,lock):
     finally:
       q.task_done()
       try:
-	lock.release()
+        lock.release()
       except Exception as e:
-	pass
+        pass
 
 def main(sysargv=[]):
   TLIM = 50 #the maximum number of concurrent threads

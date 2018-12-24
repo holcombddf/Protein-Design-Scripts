@@ -19,15 +19,15 @@ def main(sysargv):
     if re.match("ATOM", line) or re.match("HETATM", line):
       cols = re.findall("\S+", line) #does not find the right columns when there is no whitespace separating them
       try:
-	key = (cols[4],int(cols[5]))
-	if key not in line_dict:
-	  line_dict[key] = "NATAA"
+        key = (cols[4],int(cols[5]))
+        if key not in line_dict:
+          line_dict[key] = "NATAA"
       except:
-	pass
+        pass
     
   #write data to RES file
   res_file.write("USE_INPUT_SC\nEX 1 EX 2\nstart\n")
-  for key in sorted(line_dict.iterkeys()):
+  for key in sorted(line_dict.keys()):
     line = str(key[1]).rjust(4)+key[0].rjust(3)+"  "+line_dict[key]+"\n"
     res_file.write(line)
   

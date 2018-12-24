@@ -21,7 +21,7 @@ class Plotter:
     for t in x[:l]:
       val = 0
       for i, b in enumerate(fit):
-	val = val + fit[i] * ((np.log(t)) ** (len(fit)-1-i))
+        val = val + fit[i] * ((np.log(t)) ** (len(fit)-1-i))
       fity.append(val)
     if scatter:
       self.ax.scatter(x[:l], y[:l], c=c, s=self.s) #change s to make the dots on the scatterplot bigger
@@ -39,11 +39,11 @@ class Plotter:
     for t in x[:l]:
       val = 0
       for i, b in enumerate(fit): #build the y-value from the polynomial
-	val = val + fit[i] * (t ** (len(fit)-1-i))
+        val = val + fit[i] * (t ** (len(fit)-1-i))
       if self.ax.get_yscale() == 'log':
-	fity.append(10 ** val)
+        fity.append(10 ** val)
       else:
-	fity.append(val)
+        fity.append(val)
     if scatter:
       self.ax.scatter(x[:l], y[:l], c=c, s=self.s) #change s to make the dots on the scatterplot bigger
     if plot:
@@ -55,10 +55,10 @@ def reverse_frame(data):
   for row in data:
     for i in range(len(newdata)):
       try:
-	yval = float(row[i])
-	newdata[i].append(yval)
+        yval = float(row[i])
+        newdata[i].append(yval)
       except:
-	pass
+        pass
   return(newdata)
 
 #returns an array containing the current min and max
@@ -105,25 +105,25 @@ def main(sysargv=[]):
     reader = csv.reader(csvfile, delimiter=",",quotechar="\'")
     for i,row in enumerate(reader):
       if i == 0 and eval_str_f(args.header):
-	labels = row
+        labels = row
       else:
-	try: #skips row if data is not numeric
-	  xval = float(row[0])
-	  x.append(xval)
-	  
-	  #find the x minimum and maximum
-	  xran = compare_range(xval, xran)
-	  
-	  if len(y) == 0:
-	    y = [[] for z in row[1:]]
-	  for j,yval in enumerate(row[1:]):
-	    yval = float(yval)
-	    y[j].append(yval)
-	    
-	    #find the y minimum and maximum
-	    yran = compare_range(yval, yran)
-	except Exception as e:
-	  print(str(e))
+        try: #skips row if data is not numeric
+          xval = float(row[0])
+          x.append(xval)
+
+          #find the x minimum and maximum
+          xran = compare_range(xval, xran)
+
+          if len(y) == 0:
+            y = [[] for z in row[1:]]
+          for j,yval in enumerate(row[1:]):
+            yval = float(yval)
+            y[j].append(yval)
+
+            #find the y minimum and maximum
+            yran = compare_range(yval, yran)
+        except Exception as e:
+          print(str(e))
 
   #################################################
   #################################################

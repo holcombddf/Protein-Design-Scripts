@@ -17,9 +17,9 @@ def find_dif(ref_vals, dif_dict, pdb):
     if len(lineparts) > 5 and lineparts[0] == "ATOM":
       key = (lineparts[4], int(lineparts[5]))
       if lineparts[3] != ref_vals[key]: #there's a difference to add
-	difference = str(lineparts[5])+"\t"+str(ref_vals[key])+ "->" + str(lineparts[3])
-	if (difference not in dif): #the difference is not in the array for this PDB
-	  dif.append(difference)
+        difference = str(lineparts[5])+"\t"+str(ref_vals[key])+ "->" + str(lineparts[3])
+        if (difference not in dif): #the difference is not in the array for this PDB
+          dif.append(difference)
     line = pdb.readline()
   dif_dict[pdb.name]=dif
   
@@ -55,11 +55,13 @@ def main(sysargv=[]):
   #read the data for the reference PDB
   line = ref_pdb.readline()
   while (line):
-    lineparts = re.findall("\S+", line)
+    if isinstance(line, (bytes, bytearray)):
+      line = str(line, "utf-8")
+    lineparts = re.findall("\S+", str(line))
     if len(lineparts) > 5 and lineparts[0] == "ATOM":
       key = (lineparts[4], int(lineparts[5]))
       if key not in ref_vals: #line data is not already in the dictionary
-	ref_vals[key] = lineparts[3]
+        ref_vals[key] = lineparts[3]
     line = ref_pdb.readline()
 
   t_arr = []

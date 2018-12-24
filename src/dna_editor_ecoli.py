@@ -120,15 +120,15 @@ def main(sysargv=[]):
       lineparts = re.findall("\d+|[a-zA-Z]", line) #capture all (multidigit) numbers and single letters
 
       if len(lineparts) == 0: #only whitespace or irrelevant characters in line
-	pass
+        pass
       elif len(lineparts) < 3 and len(lineparts) > 0: #check that location and replacement info are both given
-	raise Exception("Changes are incorrectly formatted: " + str(lineparts))
+        raise Exception("Changes are incorrectly formatted: " + str(lineparts))
       else:
-	location = int(lineparts[0])-int(args.index)
-	if (lineparts[1]).upper() != (amino_seq[location]).upper(): #check that the intended amino acid to be replaced is at the given location
-	  raise Exception("Amino acid at location " + str(location) + " does not match given amino acid: " + lineparts[1])
-	new_dna=aa_to_dna(lineparts[2])
-	editlist.append([int(lineparts[0]), lineparts[2], new_dna])
+        location = int(lineparts[0])-int(args.index)
+        if (lineparts[1]).upper() != (amino_seq[location]).upper(): #check that the intended amino acid to be replaced is at the given location
+          raise Exception("Amino acid at location " + str(location) + " does not match given amino acid: " + lineparts[1])
+        new_dna=aa_to_dna(lineparts[2])
+        editlist.append([int(lineparts[0]), lineparts[2], new_dna])
   
   #process and print the edits
   print_with_colors(amino_seq, dna_seq, editlist, '\033[93m', '\033[0m') #print to console

@@ -46,10 +46,9 @@ def main(sysargv=[]):
       subdir.strip()
       os.path.join(subdir, "")
       if os.path.isdir(subdir) and os.path.normpath(subdir) != os.path.normpath(directory):
-	print(subdir)
-	runargs=(subdir, args.headerlist, args.headers, args.sortheader,)
-	t = threading.Thread(target=run_scripts, args=runargs)
-	t.start()
+        runargs=(subdir, args.headerlist, args.headers, args.sortheader,)
+        t = threading.Thread(target=run_scripts, args=runargs)
+        t.start()
       
 if __name__ == "__main__":
   main(sys.argv[1:])
